@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MusikOnline</string>
+    <string name="play">Play</string>
+    <string name="next">Next</string>
+    <string name="previous">Prev</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+</resources>
