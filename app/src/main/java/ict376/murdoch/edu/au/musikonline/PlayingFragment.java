@@ -66,7 +66,11 @@ description=v.findViewById(R.id.songDescField);
         return v;
 
     }
-
+    @Override
+    public void onPause() {
+    super.onPause();
+        mediaplayer.stop();
+    }
 
     private void initView(int index) {
         try {
