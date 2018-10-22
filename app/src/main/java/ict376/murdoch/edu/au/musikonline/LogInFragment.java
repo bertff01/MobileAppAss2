@@ -23,6 +23,7 @@ public class LogInFragment extends Fragment {
     private DataManager mDataManager;
     private List<Customer> mCustomerArrayList;
     boolean validLogin = false;
+    View v;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -34,7 +35,7 @@ public class LogInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.loginfragment, container, false);
-
+        this.v=v;
         mUsername = (EditText) v.findViewById(R.id.usernameField);
         mPassword = (EditText) v.findViewById(R.id.passwordField);
 
@@ -65,10 +66,11 @@ public class LogInFragment extends Fragment {
                 if(validLogin)
                 {
                     Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                    Fragment libraryFragment = new LibraryFragment();
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.fragement_container, libraryFragment);
-                    ft.commit();
+//                    PlayingFragment nextFrag= new PlayingFragment();
+//                    getActivity().getSupportFragmentManager().beginTransaction()
+//                            .replace(v.getId(), nextFrag,"findThisFragment")
+//                            .addToBackStack(null)
+//                            .commit();
                 }
                 else
                 {

@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(fragment == null)
         {
-            fragment = new LogInFragment();
+            fragment = new LibraryFragment();
             fm.beginTransaction().add(R.id.fragement_container, fragment).commit();
         }
     }

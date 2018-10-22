@@ -214,7 +214,7 @@ description=v.findViewById(R.id.songDescField);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            initView(0);
+            initView(SingletonTracks.getInstance().getTrack());
 
         }
     }
