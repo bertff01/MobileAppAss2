@@ -1,6 +1,8 @@
 package ict376.murdoch.edu.au.musikonline;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class PlayingFragment extends Fragment {
@@ -34,8 +38,11 @@ public class PlayingFragment extends Fragment {
     private Button previous;
     private Button next;
     private SeekBar seek;
+    private ImageView imageView;
     private int current;
+    final Random rnd = new Random();
     Handler mHandler = new Handler();
+    int[] images = {R.drawable.img1,R.drawable.img2,R.drawable.img3,R.drawable.img4,R.drawable.img5,R.drawable.img6};
     List<Track> tracks;
 private TextView description;
     String url;
@@ -63,8 +70,29 @@ description=v.findViewById(R.id.songDescField);
 
         setOnClickListeners();
         new JSONParse().execute();
+        imageView = (ImageView) v.findViewById(R.id.imageView);
+        // I have 3 images named img_0 to img_2, so...
+
         return v;
 
+    }
+    protected final static int getResourceID
+            (final String resName, final String resType, final Context ctx)
+    {
+        final int ResourceID =
+                ctx.getResources().getIdentifier(resName, resType,
+                        ctx.getApplicationInfo().packageName);
+        if (ResourceID == 0)
+        {
+            throw new IllegalArgumentException
+                    (
+                            "No resource string found with name " + resName
+                    );
+        }
+        else
+        {
+            return ResourceID;
+        }
     }
     @Override
     public void onPause() {
@@ -72,9 +100,11 @@ description=v.findViewById(R.id.songDescField);
         mediaplayer.stop();
     }
 
+
     private void initView(int index) {
         try {
             String musicurl="http://206.189.149.36:8080/"+tracks.get(index).file;
+            imageView.setImageResource(images[rnd.nextInt(images.length)]);
             Log.d("Music","Music Url");
             if(mediaplayer.isPlaying())
                 mediaplayer.stop();
