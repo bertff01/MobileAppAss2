@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -97,20 +98,33 @@ description=v.findViewById(R.id.songDescField);
     @Override
     public void onPause() {
     super.onPause();
-        mediaplayer.stop();
+        mediaplayer.pause();
     }
 
 
     private void initView(int index) {
         try {
-            String musicurl="http://206.189.149.36:8080/"+tracks.get(index).file;
-            imageView.setImageResource(images[rnd.nextInt(images.length)]);
-            Log.d("Music","Music Url");
+            String musicurl;
+            int resID=0;
+            resID=getResources().getIdentifier(tracks.get(index).file.substring(2, tracks.get(index).file.length()-4), "raw", getActivity().getPackageName());
+            if(LibraryFragment.network) {
+                musicurl="http://206.189.149.36:8080/"+tracks.get(index).file;
+            } else {
+                musicurl="android.resource://"+ getActivity().getPackageName()+"/res/raw/" + tracks.get(index).file.substring(2);
+
+            }
             if(mediaplayer.isPlaying())
                 mediaplayer.stop();
             mediaplayer=new MediaPlayer();
-            mediaplayer.setDataSource(musicurl);
-            mediaplayer.prepare();
+            mediaplayer=MediaPlayer.create(getContext(),resID);
+          //  mediaplayer.setDataSource(getContext(),Uri.parse(musicurl));
+          //  mediaplayer.prepare();
+           imageView.setImageResource(images[rnd.nextInt(images.length)]);
+            Log.d("Music","Music Url");
+
+
+
+
             current=index;
             Log.d("playing",Boolean.toString(mediaplayer.isPlaying()));
         }
@@ -218,6 +232,7 @@ description=v.findViewById(R.id.songDescField);
 
             JSONArray json = new JSONArray();
             // Getting JSON from URL
+            if(LibraryFragment.network) {
             try {
           json = GetTracks.readJsonFromUrl(url);
 
@@ -225,7 +240,14 @@ description=v.findViewById(R.id.songDescField);
             } catch (Exception e) {
 
 
-        }
+        }}
+        else {
+                try {
+                    json = GetTracks.readJsonFromString(getResources().getString(R.string.tracks));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             return json;}
         @Override
         protected void onPostExecute(JSONArray json) {

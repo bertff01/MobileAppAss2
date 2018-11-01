@@ -35,4 +35,15 @@ public class GetTracks {
             is.close();
         }
     }
+    public static JSONArray readJsonFromString(String jsonstring) throws IOException, JSONException {
+
+        try {
+
+            String jsonText = jsonstring;
+            JSONArray json = new JSONArray(jsonText);
+            return json;
+        } finally {
+
+        }
+    }
 }

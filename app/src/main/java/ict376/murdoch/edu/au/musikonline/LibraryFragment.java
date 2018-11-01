@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LibraryFragment extends Fragment{
+    public static boolean network = false;
     List<String> tracks;
     String url=  "http://206.189.149.36:8080/tracks.json";
     ListView list;
@@ -83,14 +84,24 @@ SingletonTracks.getInstance().setTrack(position);
         protected JSONArray doInBackground(String... args) {
 
             JSONArray json = new JSONArray();
-            // Getting JSON from URL
-            try {
-                json = GetTracks.readJsonFromUrl(url);
+            if(network) {
+                // Getting JSON from URL
+                try {
+                    json = GetTracks.readJsonFromUrl(url);
 
 
-            } catch (Exception e) {
+                } catch (Exception e) {
 
 
+                }
+            }
+            else {
+                try {
+                   Log.d("jsonstring",getResources().getString(R.string.tracks));
+                    json = GetTracks.readJsonFromString(getResources().getString(R.string.tracks));
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
             return json;}
         @Override
