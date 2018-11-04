@@ -57,7 +57,7 @@ public class LogInFragment extends Fragment {
                 for(int i = 0; i < mCustomerArrayList.size(); i++)
                 {
                     if(mCustomerArrayList.get(i).getCust_username().equals(username) &&
-                            mCustomerArrayList.get(i).getCust_password().equals(username))
+                            mCustomerArrayList.get(i).getCust_password().equals(password))
                     {
                         validLogin = true;
                     }
@@ -70,8 +70,11 @@ public class LogInFragment extends Fragment {
                 {
                     Toast.makeText(getActivity().getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     System.out.println("Login Successful");
+                    validLogin=false;
+
                     Fragment libraryFragment = new ict376.murdoch.edu.au.mobileappass2attempt2.LibraryFragment();
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.addToBackStack(null);
                     ft.replace(R.id.fragement_container, libraryFragment);
                     ft.commit();
                 }
@@ -91,6 +94,7 @@ public class LogInFragment extends Fragment {
                 System.out.println("Create Account opened");
                 Fragment createAccountFragment = new ict376.murdoch.edu.au.mobileappass2attempt2.CreateAccountFragment();
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.addToBackStack(null);
                 ft.replace(R.id.fragement_container, createAccountFragment);
                 ft.commit();
 

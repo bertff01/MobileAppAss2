@@ -216,8 +216,10 @@ description=v.findViewById(R.id.songDescField);
                 musicurl="android.resource://"+ getActivity().getPackageName()+"/res/raw/" + tracks.get(index).file.substring(2);
 
             }
-            if(mediaplayer.isPlaying())
-                mediaplayer.stop();
+            if(mediaplayer!=null) {
+                if (mediaplayer.isPlaying())
+                    mediaplayer.stop();
+            }
             mediaplayer=new MediaPlayer();
             mediaplayer=MediaPlayer.create(getContext(),resID);
           //  mediaplayer.setDataSource(getContext(),Uri.parse(musicurl));

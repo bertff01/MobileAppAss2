@@ -54,6 +54,8 @@ public class CreateAccountFragment extends Fragment {
                     System.out.println("Login Successful");
                     Fragment loginFragment = new ict376.murdoch.edu.au.mobileappass2attempt2.LogInFragment();
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+                    ft.addToBackStack(null);
                     ft.replace(R.id.fragement_container, loginFragment);
                     ft.commit();
                 }
