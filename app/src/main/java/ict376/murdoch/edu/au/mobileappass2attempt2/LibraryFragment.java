@@ -19,6 +19,9 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * this is the fragment that shows the list of songs available
+ */
 public class LibraryFragment extends Fragment{
     public static boolean network = false;
     List<String> tracks;
@@ -30,6 +33,13 @@ public class LibraryFragment extends Fragment{
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * sets up the stuff for the fragment here like the list view etc
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -61,10 +71,18 @@ SingletonTracks.getInstance().setTrack(position);
 
     }
 
+    /**
+     * just gets the list view set up
+     */
     public void initView() {
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(getView().getContext(),android.R.layout.simple_list_item_1,tracks);
         list.setAdapter(arrayAdapter);
     }
+
+    /**
+     * this was initially to get json from the internet using async method but now its just getting it from a string file, this has been left
+     * even though its not really needed.
+     */
     private class JSONParse extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
 

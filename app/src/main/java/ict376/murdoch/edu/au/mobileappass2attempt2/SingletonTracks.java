@@ -1,5 +1,8 @@
 package ict376.murdoch.edu.au.mobileappass2attempt2;
 
+/**
+ * just stores the current track number.
+ */
 public class SingletonTracks {
 
     private static SingletonTracks st;

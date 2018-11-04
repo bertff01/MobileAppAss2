@@ -29,7 +29,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Playing fragment
+ * Playing fragment that plays the actual songs
+ *
  */
 public class PlayingFragment extends Fragment implements SensorEventListener {
 
@@ -58,6 +59,13 @@ private TextView description;
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * creates the stuff for the fragment like the media player aswell as getting the json data
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -82,6 +90,14 @@ description=v.findViewById(R.id.songDescField);
         return v;
 
     }
+
+    /**
+     * this isn't currently used i don't believe
+     * @param resName
+     * @param resType
+     * @param ctx
+     * @return
+     */
     protected final static int getResourceID
             (final String resName, final String resType, final Context ctx)
     {
@@ -100,12 +116,19 @@ description=v.findViewById(R.id.songDescField);
             return ResourceID;
         }
     }
+
+    /**
+     * this pauses the player when the backbutton is pressed.
+     */
     @Override
     public void onPause() {
     super.onPause();
         mediaplayer.pause();
     }
 
+    /**
+     * added by chris to shuffle song if shaken
+     */
     private void shuffleSong() {
         Random randomNum = new Random();
         //generate random current value
@@ -137,6 +160,11 @@ description=v.findViewById(R.id.songDescField);
 
     }
 
+    /**
+     * not used
+     * @param sensor
+     * @param accuracy
+     */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy)
     {
@@ -172,6 +200,11 @@ description=v.findViewById(R.id.songDescField);
         lastZ = event.values[2];
 
     }
+
+    /**
+     * bad name but sticking with it, this initializes the music player object and plays the music.
+     * @param index
+     */
     private void initView(int index) {
         try {
             String musicurl;
@@ -209,6 +242,10 @@ description=v.findViewById(R.id.songDescField);
 
 
     }
+
+    /**
+     * plays and pauses the music
+     */
     private void playPause() {
         if(mediaplayer!=null) {
             Log.d("playing", Boolean.toString(mediaplayer.isPlaying()));
@@ -235,6 +272,10 @@ description=v.findViewById(R.id.songDescField);
             }
         }
     }
+
+    /**
+     * plumbijng code for listeners
+     */
     private void setOnClickListeners(){
         playPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,10 +315,18 @@ description=v.findViewById(R.id.songDescField);
             }
         });
     }
+
+    /**
+     * next song in the tracklist
+     */
     private void nextSong() {
         current=(current+1)%(tracks.size()-1);
         initView(current);
     }
+
+    /**
+     * previous song in the tracklist
+     */
     private void previousSong() {
         if(current==0)
             current=tracks.size()-2;
@@ -285,6 +334,11 @@ description=v.findViewById(R.id.songDescField);
             current=current-1;
         initView(current);
     }
+
+    /**
+     * used to get the json but it isn't necessary to make it async but it is anyway because we
+     * were using network stores songs before but decided to just use local songs
+     */
     private class JSONParse extends AsyncTask<String, String, JSONArray> {
         private ProgressDialog pDialog;
         @Override

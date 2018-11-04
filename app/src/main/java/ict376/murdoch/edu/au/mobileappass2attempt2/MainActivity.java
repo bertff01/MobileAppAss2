@@ -5,6 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+/**
+ * pretty boring but it just loads the first fragment
+ */
 public class MainActivity extends AppCompatActivity {
 
 

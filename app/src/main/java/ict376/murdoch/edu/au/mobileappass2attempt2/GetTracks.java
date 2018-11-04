@@ -22,6 +22,13 @@ public class GetTracks {
         return sb.toString();
     }
 
+    /**
+     * used to get json from a server but now just get from strings.xml
+     * @param url
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
     public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {
         InputStream is = new URL(url).openStream();
         try {
@@ -33,6 +40,14 @@ public class GetTracks {
             is.close();
         }
     }
+
+    /**
+     * this gets json from strings.xml
+     * @param jsonstring
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
     public static JSONArray readJsonFromString(String jsonstring) throws IOException, JSONException {
 
         try {

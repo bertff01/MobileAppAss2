@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+/**
+ * fragment for logging in.
+ */
 public class LogInFragment extends Fragment {
 
     private Button mSubmitButton;
